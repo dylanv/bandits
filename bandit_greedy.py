@@ -19,4 +19,5 @@ class Bandit_Greedy:
         self._choice_totals[arm] += 1
         self._means[arm] = self._reward_totals[arm]/self._choice_totals[arm]
         max_arm = self._means.index(max(self._means))
-        self._probabilities = [1-self._eps if i==max_arm else self._eps/(self._num_arms-1) for i in range(self._num_arms)]
+        self._probabilities = \
+            [1-self._eps if i==max_arm else self._eps/(self._num_arms-1) for i in range(self._num_arms)]
