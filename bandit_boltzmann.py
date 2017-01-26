@@ -2,14 +2,40 @@ import numpy as np
 
 class Bandit_Boltzmann:
 
-    def __init__(self, num_arms, eps=0.1):
+    def __init__(self, num_arms, temp=0.1):
         self._num_arms = num_arms
+        self._temp = temp
+
         self._arms = [i for i in range(self._num_arms)]
+        self._means = [0.5 for i in range(self._num_arms)]
+
+
+        self._probabilities = [0.0 for i in range(self._num_arms)]
+        self._calc_probabilities()
+
         self._reward_totals = [0 for i in range(self._num_arms)]
         self._choice_totals = [0 for i in range(self._num_arms)]
 
     def get_choice(self):
-        return 0
+        return np.random.choice(self._arms, p=self._probabilities)
 
     def update(self, arm, reward):
-        return 0
+        self._reward_totals[arm] += reward
+        self._choice_totals[arm] += 1
+        self._means[arm] = self._reward_totals[arm] / self._choice_totals[arm]
+        self._calc_probabilities()
+
+    def _calc_probabilities(self):
+        denom_sum = 0
+        for j in range(self._num_arms):
+            denom_sum += np.exp(self._means[j] / self._temp)
+
+        total = 0
+        for i in range(self._num_arms):
+            self._probabilities[i] = np.exp(self._means[i] / self._temp) / denom_sum
+            total += self._probabilities[i]
+
+
+        for i in range(self._num_arms):
+            self._probabilities[i] = self._probabilities[i] / total
+
