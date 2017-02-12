@@ -1,4 +1,3 @@
-import numpy as np
 from math import sqrt, log
 from numpy import argmax
 
