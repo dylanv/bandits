@@ -1,6 +1,6 @@
 import numpy as np
 
-class Bandit_Pursuit:
+class BanditPursuit:
 
     def __init__(self, num_arms, learning_rate=0.5):
 
@@ -31,3 +31,6 @@ class Bandit_Pursuit:
                 self._probabilities[arm] += self._learning_rate * (1 - self._probabilities[arm])
             else:
                 self._probabilities[arm] += self._learning_rate * (0 - self._probabilities[arm])
+
+    def get_probabilities(self):
+        return self._probabilities
