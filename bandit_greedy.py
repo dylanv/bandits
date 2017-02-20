@@ -7,7 +7,7 @@ class Bandit_Greedy:
         self._eps = eps
 
         self._means = np.zeros(self._num_arms) + 0.5
-        self._arms = np.asarray([i for i in range(self._num_arms)])
+        self._arms = [i for i in range(self._num_arms)]
         self._probabilities = np.zeros(self._num_arms) + 1.0/self._num_arms
         self._reward_totals = np.zeros(self._num_arms)
         self._choice_totals = np.zeros(self._num_arms)

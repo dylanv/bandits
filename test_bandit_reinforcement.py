@@ -1,14 +1,14 @@
-from bandit_pursuit import Bandit_Pursuit
+from bandit_reinforcement import Bandit_Reinforcement
 import numpy as np
 
-pursuit_bandit = Bandit_Pursuit(3, learning_rate=0.5)
+reinforcement_bandit = Bandit_Reinforcement(3)
 
 means = [0.3,0.5,0.7]
 std_devs = [0.1, 0.1, 0.1]
 
-for turn in range(1000):
-    choice = pursuit_bandit.get_choice()
+for turn in range(10):
+    choice = reinforcement_bandit.get_choice()
     reward = np.clip(np.random.normal(means[choice],std_devs[choice]),0,1)
-    pursuit_bandit.update(choice, reward)
+    reinforcement_bandit.update(choice, reward)
 
-print(pursuit_bandit._probabilities)
+print(reinforcement_bandit._probabilities)

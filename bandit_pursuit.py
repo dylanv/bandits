@@ -8,12 +8,12 @@ class Bandit_Pursuit:
         self._learning_rate = learning_rate
 
         self._arms = [i for i in range(self._num_arms)]
-        self._means = [0.5 for i in range(self._num_arms)]
 
-        self._probabilities = [1.0/num_arms for i in range(self._num_arms)]
+        self._means = np.zeros(self._num_arms) + 0.5
+        self._probabilities = np.zeros(self._num_arms) + 1.0/self._num_arms
 
-        self._reward_totals = [0 for i in range(self._num_arms)]
-        self._choice_totals = [0 for i in range(self._num_arms)]
+        self._reward_totals = np.zeros(self._num_arms)
+        self._choice_totals = np.zeros(self._num_arms)
 
     def get_choice(self):
         return np.random.choice(self._arms, p=self._probabilities)
