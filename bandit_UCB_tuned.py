@@ -1,6 +1,7 @@
 import numpy as np
 
-class Bandit_UCB_tuned:
+
+class BanditUCBtuned:
 
     def __init__(self, num_arms):
         self._num_arms = num_arms
@@ -32,10 +33,12 @@ class Bandit_UCB_tuned:
         self._sum_of_squares[arm] += np.abs(reward - self._means[arm])**2
 
         denom = self._choice_totals[arm] - 1 if self._choice_totals[arm] - 1 >= 2 else self._choice_totals[arm]
-        self._V[arm] = self._sum_of_squares[arm]/(denom)
+        self._V[arm] = self._sum_of_squares[arm]/denom
         self._V[arm] += np.sqrt((2*np.log(self._round))/(self._choice_totals[arm]))
 
+        v = np.minimum(0.25, self._V[arm])
         self._preferences[arm] = self._means[arm]
-        self._preferences[arm] += np.sqrt((2*np.log(self._round)/self._choice_totals[arm])*np.minimum(0.25,self._V[arm]))
+        self._preferences[arm] += np.sqrt((2*np.log(self._round)/self._choice_totals[arm])*v)
 
-
+    def get_preferences(self):
+        return self._preferences
