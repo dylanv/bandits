@@ -1,6 +1,7 @@
 import numpy as np
 
-class Bandit_Greedy:
+
+class BanditGreedy:
 
     def __init__(self, num_arms, eps=0.1):
         self._num_arms = num_arms
@@ -21,4 +22,7 @@ class Bandit_Greedy:
         self._means[arm] = self._reward_totals[arm]/self._choice_totals[arm]
         max_arm = np.argmax(self._means)
         self._probabilities \
-            = [1-self._eps if i==max_arm else self._eps/(self._num_arms-1) for i in range(self._num_arms)]
+            = [1-self._eps if i == max_arm else self._eps/(self._num_arms-1) for i in range(self._num_arms)]
+
+    def get_means(self):
+        return self._means
